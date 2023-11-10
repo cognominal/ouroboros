@@ -1,4 +1,6 @@
-# Helper to write vscode extensions using the ouroboros extension
+# THIS IS A WORK IN PROGRESS. NOT WORKING YET.˝
+
+## Helper to write vscode extensions using the ouroboros extension
 
 Ouroboros helps the user to write vscode extensions by using treeviews to
 navigate the source code of existing extensions. The involved extensions can be
@@ -72,7 +74,10 @@ folder to search for extensions.
 These object may have the following keys: `folder`, `name`, `RepoUrl`.
 `folder` is mandatory and is a folder path
 `name` is mandatory if `RepoUrl` is  absent. 
-With 
+
+# ouroboros.addCommand
+
+It adds
 
 
 
