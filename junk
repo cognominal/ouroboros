@@ -1,0 +1,31 @@
+export  async function utilsInit () {
+    contributionTree =  mkContributionTree(gitRepoSamplesDir)
+
+}
+
+// export default async function findPackageJsonPaths(dir: string): Promise<string[]> {
+//     return recFindPackageJsonPaths(dir);
+// }
+
+// export async function recFindPackageJsonPaths(dir: string): Promise<string[]> {
+//     let packageJsonPaths: string[] = [];
+//     const files = await fs.promises.readdir(dir);
+
+//     for (const fileName of files) {
+//         const filePath = path.join(dir, fileName);
+//         const stat = await fs.promises.stat(filePath);
+//         if (stat.isDirectory() && fileName !== 'node_modules') {
+//             // Recursively call the function for subdirectories
+//             packageJsonPaths = packageJsonPaths.concat(await recFindPackageJsonPaths(filePath));
+
+//         } else {
+//             // Check if the file name matches "package.json"
+//             if (fileName === 'package.json') {
+//                 packageJsonPaths.push(filePath);
+//             }
+//         }
+//     };
+
+//     return packageJsonPaths;
+// }
+

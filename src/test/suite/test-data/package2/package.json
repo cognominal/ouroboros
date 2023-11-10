@@ -1,0 +1,43 @@
+{
+    "name": "package2",
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "contributes": {
+        "commands": [
+            {
+                "command": "ouroboros.helloWorld",
+                "title": "Hello World"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "package-explorer",
+                    "title": "Package Explorer",
+                    "icon": "media/dep.svg"
+                }
+            ]
+        },
+        "views": {
+            "package-explorer": [
+                {
+                    "id": "nodeDependencies",
+                    "name": "Node Dependencies",
+                    "icon": "media/dep.svg",
+                    "contextualTitle": "Package Explorer"
+                },
+                {
+                    "id": "extsContributions",
+                    "name": "Extension Contributions",
+                    "icon": "media/dep.svg",
+                    "contextualTitle": "Package Explorer"
+                }
+            ]
+        }
+    },
+    "dependencies": {
+        "rimraf": "^5.0.1"
+    }
+}
