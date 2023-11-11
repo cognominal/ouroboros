@@ -8,9 +8,5 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
-    "mochaExplorer.files": "src/test/**/*.test.ts",
-    "mochaExplorer.ui": "bdd", // or "tdd", "qunit", "exports" depending on your setup
-    "mochaExplorer.require": "ts-node/register",
-    "testExplorer.onStart": "reset"
 
 }

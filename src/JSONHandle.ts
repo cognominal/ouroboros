@@ -16,8 +16,8 @@ export function getJsonAst(text: string, navigate: string): ASTNode {
         } else if (parsed.type === 'Array') {
             node = parsed.children[parseInt(key)];
         }
-        if (node) {
-            parsed = node;
+        if (!node) {
+            return undefined;
         }
     });
     
