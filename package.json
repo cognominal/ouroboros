@@ -114,7 +114,6 @@
     "test": "vscode-test",
     "test:unit": "mocha -r ts-node/register 'src/unit-tests/**/*.test.ts'",
     "test:integration": "mocha -r ts-node/register 'src/other-integration/**/*.test.ts'"
-
   },
   "devDependencies": {
     "@types/assert": "^1.5.8",
@@ -133,6 +132,7 @@
   "dependencies": {
     "@types/json-to-ast": "^2.1.4",
     "json-to-ast": "^2.1.0",
+    "lodash": "^4.17.21",
     "rimraf": "^5.0.1",
     "vscode": "^1.1.37"
   },

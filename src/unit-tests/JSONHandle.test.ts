@@ -1,6 +1,27 @@
 import { it, describe, before } from 'mocha';
 import * as assert from 'assert';
 import { getJsonAst } from '../JSONHandle';
+import { assertDeepEqualWithOmit } from '../test-utils';
+
+
+
+describe('JSONHandle simple', () => {
+  it('should return a Literal node with value 1 for foo', () => {
+    const text = `
+    {
+        "foo": 1
+    }
+    `;
+    let node = getJsonAst(text, 'foo');
+    assertDeepEqualWithOmit(node, {
+      type: 'Literal',
+      value: 1,
+      raw: '1'
+    });
+  }
+
+  )
+})
 
 describe('JSONHandle', () => {
   it('should return a Literal node with value 1 for /foo/bar/baz', () => {
