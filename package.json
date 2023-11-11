@@ -112,7 +112,8 @@
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
-    "unittests": "mocha --ui tdd --reporter spec --timeout 10000 --colors --recursive ./out/test/**/*.unit.test.ts"
+    "test:unit": "mocha 'src/unit-tests/**/*.test.js'",
+    "test:integration": "mocha 'src/other-integration/**/*.test.js'"
 
   },
   "devDependencies": {

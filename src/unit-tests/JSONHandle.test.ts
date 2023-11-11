@@ -1,6 +1,6 @@
 import { it, describe, before } from 'mocha';
 import * as assert from 'assert';
-import { getJsonAst } from '../../JSONHandle';
+import { getJsonAst } from '../JSONHandle';
 
 describe('JSONHandle', () => {
   it('should return a Literal node with value 1 for /foo/bar/baz', () => {
