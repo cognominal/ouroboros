@@ -77,7 +77,7 @@ These object may have the following keys: `folder`, `name`, `RepoUrl`.
 
 # ouroboros.addCommand
 
-It adds
+It updates `package.json`, `src/extension.ts` and `src/command.ts` to add placeholders for a command in this file.
 
 
 

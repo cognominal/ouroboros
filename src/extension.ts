@@ -13,7 +13,7 @@ import { DepNodeProvider, Dependency } from './nodeDependencies';
 import { ContributionsProviderClass, ContributionsProviderByContributionKind } from './contributionsTree';
 import { workspace } from 'vscode';
 import { readFile } from 'fs';
-import { addCommand } from './commands';
+import { addCommand, deleteCommand } from './commands';
 
 // Get the extensionsPath setting
 const config = vscode.workspace.getConfiguration();
@@ -56,6 +56,8 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable);
 	disposable = vscode.commands.registerCommand('ouroboros.addCommand', addCommand)
+	context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('ouroboros.deleteCommand', deleteCommand)
 	context.subscriptions.push(disposable);
 
 

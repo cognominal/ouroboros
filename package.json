@@ -21,8 +21,11 @@
       {
         "command": "ouroboros.addCommand",
         "title": "Ouroboros add command"
+      },
+      {
+        "command": "ouroboros.deleteCommand",
+        "title": "Ouroboros delete command"
       }
-
     ],
     "viewsContainers": {
       "activitybar": [
@@ -108,7 +111,9 @@
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "unittests": "mocha --ui tdd --reporter spec --timeout 10000 --colors --recursive ./out/test/**/*.unit.test.ts"
+
   },
   "devDependencies": {
     "@types/assert": "^1.5.8",
@@ -125,6 +130,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@types/json-to-ast": "^2.1.4",
+    "json-to-ast": "^2.1.0",
     "rimraf": "^5.0.1",
     "vscode": "^1.1.37"
   },
