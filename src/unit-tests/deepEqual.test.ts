@@ -1,6 +1,6 @@
 import { it, describe, before } from 'mocha';
 import * as assert from 'assert';
-import { assertDeepEqualWithOmit, deepOmit } from '../test-utils';
+import { assertDeepEqualWithOmit, deepOmit, deepOmitLocAndRaw } from '../test-utils';
 
 describe('deepomit', () => {
     it('`deepOmit`should return the same object if no key is omitted', () => {
@@ -20,6 +20,9 @@ describe('deepomit', () => {
     })
     it('`deepOmit`should omit entry with default key loc deeper', () => {
         assert.deepEqual(deepOmit([{foo: { a: 1, loc: null }}]), [{foo: { a: 1 }}]);
+    })
+    it('`deepOmit`should omit entry with default keys `loc` and `raw`', () => {
+        assert.deepEqual(deepOmitLocAndRaw([{foo: { a: 1, loc: null }, raw:{}}]), [{foo: { a: 1 }}]);
     })
     
 })
