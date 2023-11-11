@@ -6,7 +6,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { exec } from 'child_process';
 import * as util from 'util';
-import { contributionTree, mkContributionTree, type JsonStruct } from './utils';
+import {  type JsonStruct } from './utils';
 
 import { rimraf, rimrafSync, native, nativeSync } from 'rimraf'
 import { DepNodeProvider, Dependency } from './nodeDependencies';
