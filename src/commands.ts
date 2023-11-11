@@ -2,11 +2,11 @@ import * as fs from 'fs';
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-function endFilePosition(uri: { fsPath: fs.PathOrFileDescriptor; }) : vscode.Position {
+function endFilePosition(uri: { fsPath: fs.PathOrFileDescriptor; }): vscode.Position {
     let file = fs.readFileSync(uri.fsPath, 'utf8');
     let lines = file.split(/\r?\n/);
     return new vscode.Position(lines.length - 1, lines[lines.length - 1].length);
-} 
+}
 
 export async function addCommand() {
     // Show quickpick to choose the folder to search for package.json
@@ -39,10 +39,10 @@ export async function addCommand() {
 
 
 
-`export function placeholderCommand() {
-    // The code to execute when the command is called
-    vscode.window.showInformationMessage('This is a placeholder command.');
-}`);
+    // `export function placeholderCommand() {
+    //     // The code to execute when the command is called
+    //     vscode.window.showInformationMessage('This is a placeholder command.');
+    // }`);
 
 
     // Check if package.json exists in the selected folder
@@ -69,7 +69,7 @@ export async function addCommand() {
     // Add a new command to the commands array
     let newCommand = {
         "command": `${extensionName}.${commandName}`,
-        "title": commandTitle 
+        "title": commandTitle
     };
     packageObj.contributes.commands.push(newCommand);
 
@@ -106,9 +106,6 @@ export async function addCommand() {
     vscode.window.showInformationMessage(`Command ${commandName} has been added.`);
 }
 
-    
-    
-}
 
 export async function deleteCommand() {
     // Show quickpick to choose the folder to search for package.json
@@ -143,7 +140,7 @@ export async function deleteCommand() {
     }
 
     // Find the index of the command to delete
-}
+
     const commandIndex = packageObj.contributes.commands.findIndex((command: any) => command.command === commandName);
     if (commandIndex === -1) {
         vscode.window.showErrorMessage(`Error: Command ${commandName} not found.`);
