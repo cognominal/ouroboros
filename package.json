@@ -25,6 +25,10 @@
       {
         "command": "ouroboros.deleteCommand",
         "title": "Ouroboros delete command"
+      },
+      {
+        "command": "ouroboros.tsParse",
+        "title": "Ouroboros ts parse"
       }
     ],
     "viewsContainers": {
@@ -118,6 +122,7 @@
   "devDependencies": {
     "@types/assert": "^1.5.8",
     "@types/mocha": "^10.0.1",
+    "@typescript-eslint/parser": "^6.9.1",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.6",
     "assert": "^2.1.0",
@@ -127,10 +132,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "eslint": "^8.47.0",
-    "@typescript-eslint/eslint-plugin": "^6.4.1",
-    "@typescript-eslint/parser": "^6.4.1",
     "@types/json-to-ast": "^2.1.4",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
     "json-to-ast": "^2.1.0",
     "lodash": "^4.17.21",
     "rimraf": "^5.0.1",

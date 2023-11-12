@@ -1,3 +1,4 @@
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -14,6 +15,7 @@ import { ContributionsProviderClass, ContributionsProviderByContributionKind } f
 import { workspace } from 'vscode';
 import { readFile } from 'fs';
 import { addCommand, deleteCommand } from './commands';
+import { tsParse } from './tsParse';
 
 // Get the extensionsPath setting
 const config = vscode.workspace.getConfiguration();
@@ -29,6 +31,7 @@ const appDirName = '.ouroboros' // TBD: make it an option
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	let disposable
 	const rootPath = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))
 		? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined;
 	init()
@@ -44,11 +47,14 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand('nodeDependencies.addEntry', () => vscode.window.showInformationMessage(`Successfully called add entry.`));
 	vscode.commands.registerCommand('nodeDependencies.editEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called edit entry on ${node.label}.`));
 	vscode.commands.registerCommand('nodeDependencies.deleteEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called delete entry on ${node.label}.`));
+    disposable = vscode.commands.registerCommand('ouroboros.tsParse', tsParse);
+    context.subscriptions.push(disposable);
+
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('ouroboros.helloWorld', async () => {
+	disposable = vscode.commands.registerCommand('ouroboros.helloWorld', async () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		// vscode.window.showInformationMessage('Hello World from ouroboros!');
