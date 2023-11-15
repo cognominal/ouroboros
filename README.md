@@ -10,6 +10,11 @@ and the treeview are progressively populated. If you have the said folders on
 your disk, you can declare them in the settings and they will be used instead
 of downloading them.
 
+Eventually ouroboros will allow to drag a feature from an extension to another.
+It will copy the code transitively used by that feature.
+
+
+
 
 [Ouroboros](https://marketplace.visualstudio.com/items?itemName=cognominal.ouroboros) uses [treeviews](https://code.visualstudio.com/api/extension-guides/tree-view) to examine the contributions of installed
 extensions, internal, external or from the sample extensions
@@ -18,8 +23,8 @@ Clicking on a treeview leaf opens the corresponding source code.
 Ouroboros is an invaluable help for vscode extension developpers :
 For any [contribution](https://code.visualstudio.com/api/references/contribution-points) tree items, ouroboros give direct access to the relevant code.
 
-
 ## Features
+
 - Ouroboros provide two treeviews. They allow to navigate extensions source code. 
 They provide the same information but organized differently. The `extension treeview` first level is the extensions list. On the other hand, the  `contribution treeview` first level are contribution points. So for any [contribution point](https://code.visualstudio.com/api/references/contribution-points) you can easily browse extensions
 that provide them.
@@ -35,7 +40,7 @@ the package.json file.
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
+ * `myExtension.enable`: Enable/disable this extension.
 
 ## Other extensions by the same author
 

@@ -8,6 +8,32 @@ function endFilePosition(uri: { fsPath: fs.PathOrFileDescriptor; }): vscode.Posi
     return new vscode.Position(lines.length - 1, lines[lines.length - 1].length);
 }
 
+export class AddCommandActionProvider implements vscode.CodeActionProvider {
+    public static readonly providedCodeActionKinds = [
+        vscode.CodeActionKind.Source
+    ];
+
+    public provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.ProviderResult<(vscode.Command | vscode.CodeAction)[]> {
+        const diagnostic = context.diagnostics[0];
+        if (diagnostic.code !== 'missing-command') {
+            return;
+        }
+
+        const commands = [
+            {
+                title: 'Add command',
+                command: 'extension.addCommand',
+                arguments: [document.uri]
+            }
+        ];
+
+        const action = new vscode.CodeAction('Add command', vscode.CodeActionKind.QuickFix);
+        action.command = commands[0];
+        return [action];
+    }
+}
+
+
 export async function addCommand() {
     // Show quickpick to choose the folder to search for package.json
     const folders = vscode.workspace.workspaceFolders;

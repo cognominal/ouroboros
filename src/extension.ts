@@ -16,16 +16,27 @@ import { workspace } from 'vscode';
 import { readFile } from 'fs';
 import { addCommand, deleteCommand } from './commands';
 import { tsParse } from './tsParse';
+import { TsParseCodeActionProvider } from './tsParse';
 
+// intialized in init()
+export let extensionConfiguration: vscode.WorkspaceConfiguration
+export let foldersWithExtensions: string[]
+
+interface FolderWithExtensions {
+	dir?: string,
+	path?: string,
+	repoUrl?: string,
+	name?: string
+}
+export let packageJsons: JsonStruct[]
 // Get the extensionsPath setting
-const config = vscode.workspace.getConfiguration();
-const extensionsPath = config.get<string>('extensionsPath');
+// const config = vscode.workspace.getConfiguration();
+// const extensionsPath = config.get<string>('extensionsPath');
 
 const appDirName = '.ouroboros' // TBD: make it an option
 // const gitRepoSamplesName = 'https://github.com/microsoft/vscode-extension-samples'
 // export const gitRepoSamplesDir = path.join(os.homedir(), appDirName, 'vscode-extension-samples');
 // const cloneCmd = `git clone --depth 1 ${gitRepoSamplesName}`
-
 
 
 // This method is called when your extension is activated
@@ -45,7 +56,9 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand('nodeDependencies.refreshEntry', () => nodeDependenciesProvider.refresh());
 	// vscode.commands.registerCommand('extension.openPackageOnNpm', () `)));
 	vscode.commands.registerCommand('nodeDependencies.addEntry', () => vscode.window.showInformationMessage(`Successfully called add entry.`));
-	vscode.commands.registerCommand('nodeDependencies.editEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called edit entry on ${node.label}.`));
+	vscode.commands.registerCommand('nodeDependencies.editEntry', (node: Dependency) => {
+		return vscode.window.showInformationMessage(`Successfully called edit entry on ${node.label}.`);
+	});
 	vscode.commands.registerCommand('nodeDependencies.deleteEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called delete entry on ${node.label}.`));
     disposable = vscode.commands.registerCommand('ouroboros.tsParse', tsParse);
     context.subscriptions.push(disposable);
@@ -65,25 +78,47 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 	disposable = vscode.commands.registerCommand('ouroboros.deleteCommand', deleteCommand)
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(vscode.languages.registerCodeActionsProvider({ scheme: 'file', language: 'typescript' }, new TsParseCodeActionProvider()));
 
 
 }
 
 
-interface FolderWithExtensions {
-	dir?: string,
-	path?: string,
-	repoUrl?: string,
-	name?: string
+
+vscode.window.onDidChangeActiveTextEditor((editor) => {
+	let inAVSExtension = false;
+    if (editor) {
+        // Check if the file belongs to your extension's workspace
+        inAVSExtension = checkIfFileInVSExtension(editor.document.uri);
+
+        // Update the context key
+        vscode.commands.executeCommand('setContext', 'inAVSExtension', inAVSExtension);
+    }
+});
+
+function checkIfFileInVSExtension(uri: vscode.Uri): boolean {
+	// Implement your logic to check if the file belongs to your extension's workspace
+	// Return true if it does, false otherwise
+	let lastDir = ''
+	let dir = path.dirname(uri.fsPath);
+	while (dir !== lastDir) {
+		const packageJsonPath = path.join(dir, 'package.json');
+		if (fs.existsSync(packageJsonPath)) {
+			const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+			return !!packageJson.contributes
+		}
+		dir = path.dirname(dir);
+	}
+	return false;
 }
-export let packageJsons: JsonStruct[]
+
 
 async function init() {
 
 	// we add folders defined by the setting property `FoldersWithExtensions` to search for extensions
 	// as defined by their package.json file
-	let config = vscode.workspace.getConfiguration('ouroboros');
-	let foldersWithExtensions = config.get<FolderWithExtensions[]>('FoldersWithExtensions') || [];
+	extensionConfiguration = vscode.workspace.getConfiguration('ouroboros');
+	foldersWithExtensions = extensionConfiguration.get<FolderWithExtensions[]>('FoldersWithExtensions') || [];
 	let folders: string[] = foldersWithExtensions.reduce((acc: string[], folder: FolderWithExtensions) => {
 		if (folder.path) {
 			folder.path = folder.path.replace('${env:HOME}', process.env.HOME || '');
@@ -93,7 +128,7 @@ async function init() {
 	}, []);
 	const workspaceFolders = workspace.workspaceFolders || [];
 	const newWorkspaceFolders = folders.map((folder) => ({ uri: vscode.Uri.file(folder), name: path.basename(folder) }));
-	workspace.updateWorkspaceFolders(workspaceFolders.length, 0, ...newWorkspaceFolders);
+	// workspace.updateWorkspaceFolders(workspaceFolders.length, 0, ...newWorkspaceFolders);
 
 	const homeDirectory = os.homedir();
 	const appDirectory = path.join(homeDirectory, appDirName);
@@ -117,4 +152,4 @@ async function init() {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() { }
+// export function deactivate() { }

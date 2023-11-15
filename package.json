@@ -66,6 +66,11 @@
       "type": "object",
       "title": "ouroboros",
       "properties": {
+        "ouroboros.openFoldersinWorkspace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open folders containing vscode extensions in the current workspace."
+        },
         "ouroboros.FoldersWithExtensions": {
           "type": "array",
           "ïtems": {
