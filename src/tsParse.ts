@@ -37,7 +37,7 @@ export async function tsParse() {
         ts.forEachChild(ast, function cb(node) {
             const kindString = ts.SyntaxKind[node.kind];
             // console.log(node.kind)
-            gotit = getRangeStatementWithSymbol(node, ast, document, 'registerCommand');
+            // gotit = getRangeStatementWithSymbol(node, ast, document, 'registerCommand');
             ts.forEachChild(node, cb);
         });
     }
@@ -74,7 +74,6 @@ function getRangeWithSymbol(node: ts.Node, ast: ts.SourceFile, document: vscode.
 }
 
 // vscode.Location vscode.Range vscode.Position vscode.LocationLink vscode.SymbolInformation vscode.DocumentSymbo
-vscode.L
 
 export async function searchSymbolsInTsFiles() {
     const tsFiles = await getTsFiles();

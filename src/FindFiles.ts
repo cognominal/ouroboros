@@ -24,12 +24,9 @@ function findFiles(directory: string, includePattern: string, excludePattern: st
     return result;
 }
 
-const tsFiles = findFiles('/path/to/directory', '.ts');
+
 
 export async function getTsFiles() {
-    // Glob pattern for all *.ts files but not *.test.ts files
-
-    // Use findFiles method to get all TypeScript files excluding test files
     const tsFiles = await vscode.workspace.findFiles(includePattern, excludePattern);
 
     return tsFiles;

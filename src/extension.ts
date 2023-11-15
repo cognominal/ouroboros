@@ -17,6 +17,7 @@ import { readFile } from 'fs';
 import { addCommand, deleteCommand } from './commands';
 import { tsParse } from './tsParse';
 import { TsParseCodeActionProvider } from './tsParse';
+// import { findKeybindingSource } from './getBindingsFromSource';
 
 // intialized in init()
 export let extensionConfiguration: vscode.WorkspaceConfiguration
@@ -79,6 +80,8 @@ export function activate(context: vscode.ExtensionContext) {
 	disposable = vscode.commands.registerCommand('ouroboros.deleteCommand', deleteCommand)
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(vscode.languages.registerCodeActionsProvider({ scheme: 'file', language: 'typescript' }, new TsParseCodeActionProvider()));
+	// disposable = vscode.commands.registerCommand('ouroboros.keybindings', findKeybindingSource)
+	context.subscriptions.push(disposable);
 
 
 }
@@ -117,17 +120,17 @@ async function init() {
 
 	// we add folders defined by the setting property `FoldersWithExtensions` to search for extensions
 	// as defined by their package.json file
-	extensionConfiguration = vscode.workspace.getConfiguration('ouroboros');
-	foldersWithExtensions = extensionConfiguration.get<FolderWithExtensions[]>('FoldersWithExtensions') || [];
-	let folders: string[] = foldersWithExtensions.reduce((acc: string[], folder: FolderWithExtensions) => {
-		if (folder.path) {
-			folder.path = folder.path.replace('${env:HOME}', process.env.HOME || '');
-			acc.push(folder.path);
-		}
-		return acc;
-	}, []);
-	const workspaceFolders = workspace.workspaceFolders || [];
-	const newWorkspaceFolders = folders.map((folder) => ({ uri: vscode.Uri.file(folder), name: path.basename(folder) }));
+	// extensionConfiguration = vscode.workspace.getConfiguration('ouroboros');
+	// foldersWithExtensions = extensionConfiguration.get<FolderWithExtensions[]>('FoldersWithExtensions') || [];
+	// let folders: string[] = foldersWithExtensions.reduce((acc: string[], folder: FolderWithExtensions) => {
+	// 	if (folder.path) {
+	// 		folder.path = folder.path.replace('${env:HOME}', process.env.HOME || '');
+	// 		acc.push(folder.path);
+	// 	}
+	// 	return acc;
+	// }, []);
+	// const workspaceFolders = workspace.workspaceFolders || [];
+	// const newWorkspaceFolders = folders.map((folder) => ({ uri: vscode.Uri.file(folder), name: path.basename(folder) }));
 	// workspace.updateWorkspaceFolders(workspaceFolders.length, 0, ...newWorkspaceFolders);
 
 	const homeDirectory = os.homedir();
